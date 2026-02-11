@@ -83,7 +83,7 @@ The right side says what happens to the source.
 
 Each exercise shows the explicit version first, then asks you to write the real Rust equivalent. You learn by seeing what the translation erases.
 
-<details>
+<details markdown="1">
 <summary>01 · literal</summary>
 
 ```rust
@@ -118,7 +118,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>02 · rebindable literal</summary>
 
 ```rust
@@ -161,7 +161,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>03 · mem copy</summary>
 
 ```rust
@@ -202,7 +202,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>04 · rebindable mem copy</summary>
 
 ```rust
@@ -242,7 +242,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>05 · take</summary>
 
 ```rust
@@ -292,7 +292,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>06 · rebindable take</summary>
 
 ```rust
@@ -333,7 +333,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>07 · take or mem copy</summary>
 
 ```rust
@@ -382,7 +382,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>08 · coord shared</summary>
 
 ```rust
@@ -427,7 +427,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>09 · rebindable coord shared</summary>
 
 ```rust
@@ -474,7 +474,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>10 · coord exclusive</summary>
 
 ```rust
@@ -527,7 +527,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>11 · rebindable coord exclusive</summary>
 
 ```rust
@@ -582,7 +582,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>12 · at mem copy</summary>
 
 ```rust
@@ -616,7 +616,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>13 · rebindable at mem copy</summary>
 
 ```rust
@@ -658,7 +658,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>14 · at take</summary>
 
 ```rust
@@ -707,7 +707,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>15 · rebindable at take</summary>
 
 ```rust
@@ -778,7 +778,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>16 · tuple unpack</summary>
 
 ```rust
@@ -810,7 +810,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>17 · tuple at second</summary>
 
 ```rust
@@ -845,7 +845,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>18 · tuple at both</summary>
 
 ```rust
@@ -882,7 +882,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>19 · at then unpack</summary>
 
 ```rust
@@ -917,7 +917,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>20 · tuple rebindable</summary>
 
 ```rust
@@ -959,7 +959,7 @@ fn main() {
 
 </details>
 
-<details>
+<details markdown="1">
 <summary>21 · litmus test</summary>
 
 ```rust

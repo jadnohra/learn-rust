@@ -19,7 +19,7 @@ for f in $(ls "$bin_dir"/*.rs | sort); do
     rest="${name#*_}"
     label="$num · ${rest//_/ }"
 
-    echo "<details>"
+    echo '<details markdown="1">'
     echo "<summary>$label</summary>"
     echo ""
     echo '```rust'
