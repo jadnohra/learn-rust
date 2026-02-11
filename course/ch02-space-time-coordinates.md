@@ -18,7 +18,7 @@ If you want to understand not just what Rust does, but why it does it, this is t
 
 <details>
 <summary>Checkpoint</summary>
-<p>Understands this chapter explains the fundamental problem. Knows the framework is abstract and applies broadly. Motivated to learn the foundation.</p>
+<p>You now know this chapter explains the fundamental problem. The framework is abstract and applies broadly.</p>
 </details>
 
 ---
@@ -57,7 +57,7 @@ Every copy creates a derived representation with a sync obligation.
 
 <details>
 <summary>Checkpoint</summary>
-<p>Sees coherence as a universal problem. Understands physics creates distance, distance forces copies, copies require coherence. Sees the pattern across layers from CPU caches to distributed systems.</p>
+<p>You now see coherence as a universal problem. Physics creates distance, distance forces copies, copies require coherence. You see the pattern from CPU caches to distributed systems.</p>
 </details>
 
 ---
@@ -76,7 +76,7 @@ State is not a primitive, but it is central to the coherence problem. State is d
 
 <details>
 <summary>Checkpoint</summary>
-<p>Knows the three axes: SPACE, TIME, COORDINATES. Understands state is central but not a primitive. Has vocabulary to describe memory bugs.</p>
+<p>You now know the three axes: SPACE, TIME, COORDINATES. You understand state is central but not a primitive. You have vocabulary to describe memory bugs.</p>
 </details>
 
 ---
@@ -213,7 +213,7 @@ COORD (p)                   ████████████████
 
 <details>
 <summary>Checkpoint</summary>
-<p>Sees each bug as a breakdown between primitives. Understands the diagrams. Recognizes these bugs from experience.</p>
+<p>You now see each bug as a breakdown between primitives. You recognize these bugs from experience.</p>
 </details>
 
 ---
@@ -248,7 +248,7 @@ Different paradigms solve the coherence problem differently.
 
 <details>
 <summary>Checkpoint</summary>
-<p>Sees how different languages approach coherence. Understands the spectrum from "eliminate the problem" to "programmer responsibility."</p>
+<p>You now see how different languages approach coherence. You understand the spectrum from "eliminate the problem" to "programmer responsibility."</p>
 </details>
 
 ---
@@ -303,5 +303,5 @@ Languages solve coherence problems with specific features. Each feature targets 
 
 <details>
 <summary>Checkpoint</summary>
-<p>Has a catalog of features organized by which primitive interaction they solve. Knows the historical context. Understands trade-offs. Has a framework for understanding memory bugs. Knows the vocabulary. Ready to see how Rust applies these ideas.</p>
+<p>You now have a catalog of features organized by which primitive interaction they solve. You know the historical context and the trade-offs. You have a framework for understanding memory bugs. You're ready to see how Rust applies these ideas.</p>
 </details>

@@ -14,7 +14,7 @@ This chapter asks: how can a compiler catch these bugs? What would it need to tr
 
 <details>
 <summary>Checkpoint</summary>
-<p>Understands this chapter explains how a compiler could catch coordinate coherence failures. Motivated by the question: what would that require?</p>
+<p>You now know this chapter explains how a compiler could catch coordinate coherence failures. The question: what would that require?</p>
 </details>
 
 ---
@@ -45,7 +45,7 @@ Through `r`, you can access `x`. Each binding has its own name, location, and li
 
 <details>
 <summary>Checkpoint</summary>
-<p>Sees the ch01 dangling reference analyzed in detail. Understands two bindings: x holds a value, r holds a COORDINATE. Understands that taking an address creates a coherence obligation between independent lifetimes.</p>
+<p>You now see the dangling reference analyzed in detail. You understand two bindings: x holds a value, r holds a COORDINATE. Taking an address creates a coherence obligation between independent lifetimes.</p>
 </details>
 
 ---
@@ -60,7 +60,7 @@ Coordinates are syntactically independent and semantically dependent. Syntactica
 
 <details>
 <summary>Checkpoint</summary>
-<p>Understands why we use "coordinate" as a term. Knows coordinates are unavoidable: physics (copying costs), data structures (indirection required). Understands coordinates are syntactically independent and semantically dependent. Knows coherence problems arise from semantics that syntax does not capture.</p>
+<p>You now understand why we use "coordinate" as a term. You know coordinates are unavoidable: physics (copying costs), data structures (indirection required). You understand they are syntactically independent and semantically dependent. Coherence problems arise from semantics that syntax does not capture.</p>
 </details>
 
 ---
@@ -162,7 +162,7 @@ The access at D is safe because no path from a death reaches it. The access at G
 
 <details>
 <summary>Checkpoint</summary>
-<p>Understands source text has hierarchical structure that the RAM model lacks. Knows the compiler bridges them using intermediate representations like the control flow graph. Understands dead space detection as graph reachability: can any path lead from space death to coordinate access?</p>
+<p>You now understand that source text has hierarchical structure that the RAM model lacks. You know the compiler bridges them using intermediate representations like the control flow graph. Dead space detection is graph reachability: can any path lead from space death to coordinate access?</p>
 </details>
 
 ---
@@ -198,7 +198,7 @@ The stack's lexical structure makes functions natural units for dead space detec
 
 <details>
 <summary>Checkpoint</summary>
-<p>Understands memory regions: static (always valid), stack (lexical structure visible), heap (no lexical structure). Knows the compiler can see when stack coordinates are valid but not heap. Understands that stack's lexical structure makes functions natural units for dead space detection.</p>
+<p>You now understand the memory regions: static (always valid), stack (lexical structure visible), heap (no lexical structure). You know the compiler can see when stack coordinates are valid but not heap. The stack's lexical structure makes functions natural units for dead space detection.</p>
 </details>
 
 ---
@@ -228,7 +228,7 @@ In the next chapter, we will see why even without these obstacles, perfect analy
 
 <details>
 <summary>Checkpoint</summary>
-<p>Understands why C++ compilers cannot do this analysis. Knows the three obstacles: separate compilation (incomplete graph), function pointers (unknown destinations), unconstrained pointers (coordinates from nowhere).</p>
+<p>You now understand why C++ compilers cannot do this analysis. You know the three obstacles: separate compilation (incomplete graph), function pointers (unknown destinations), unconstrained pointers (coordinates from nowhere).</p>
 </details>
 
 ---
@@ -247,7 +247,7 @@ In the next chapter, we will see why even without these obstacles, perfect analy
 
 <details>
 <summary>Checkpoint</summary>
-<p>Knows the landscape: no analysis (C/C++), static analyzers (heuristics), region annotations (Cyclone/ATS), garbage collection (runtime tracking), ownership (Rust). Understands GC inverts the problem: space lives as long as coordinates reach it.</p>
+<p>You now know the landscape: no analysis (C/C++), static analyzers (heuristics), region annotations (Cyclone/ATS), garbage collection (runtime tracking), ownership (Rust). You understand GC inverts the problem: space lives as long as coordinates reach it.</p>
 </details>
 
 ---
@@ -406,5 +406,5 @@ Connection information in signatures replaces path tracing through function bodi
 
 <details>
 <summary>Checkpoint</summary>
-<p>Understands how Rust makes compile-time coordinate analysis possible. Knows the constraints (constrained coordinates, heap lifetime control via ownership) and the encoding (connection information in function signatures replaces path tracing). Ready for lifetime syntax and mechanics in later chapters.</p>
+<p>You now understand how Rust makes compile-time coordinate analysis possible. You know the constraints (constrained coordinates, heap lifetime control via ownership) and the encoding (connection information in function signatures replaces path tracing). You're ready for lifetime syntax and mechanics.</p>
 </details>

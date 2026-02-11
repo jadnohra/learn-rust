@@ -69,7 +69,7 @@ fn main() {
 
 <details>
 <summary>Checkpoint</summary>
-<p>Sees Rust syntax. Recognizes it. Can read it.</p>
+<p>You now recognize Rust syntax. You can read it.</p>
 </details>
 
 ---
@@ -207,7 +207,7 @@ None of these compile in Rust. They compile in C++ and contain memory bugs.
 
 <details>
 <summary>Checkpoint</summary>
-<p>Sees buggy code. Knows the bugs. Sees Rust rejects it. Does not know how Rust detects them.</p>
+<p>You now see buggy code that Rust rejects. You know the bugs. You don't know how Rust detects them.</p>
 </details>
 
 ---
@@ -244,5 +244,5 @@ int main() {
 
 <details>
 <summary>Checkpoint</summary>
-<p>Sees one example explained. Connects Rust error to C++ undefined behavior. Knows Rust catches bugs C++ misses. Does not know how yet. Curious.</p>
+<p>You now connect this Rust error to C++ undefined behavior. You know Rust catches bugs C++ misses. You don't know how yet.</p>
 </details>
