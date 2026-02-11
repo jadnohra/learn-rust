@@ -3,6 +3,7 @@ layout: course
 title: Exercises
 nav_title: Exercises
 permalink: /learn-rust/exercises/
+wide: true
 ---
 
 # Exercises
