@@ -1,0 +1,44 @@
+[package]
+name = "memory-ordering"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "01_visibility"
+path = "src/bin/01_visibility.rs"
+
+[[bin]]
+name = "02_store_buffers"
+path = "src/bin/02_store_buffers.rs"
+
+[[bin]]
+name = "03_release_acquire"
+path = "src/bin/03_release_acquire.rs"
+
+[[bin]]
+name = "04_seqcst"
+path = "src/bin/04_seqcst.rs"
+
+[[bin]]
+name = "05_relaxed"
+path = "src/bin/05_relaxed.rs"
+
+[[bin]]
+name = "06_spinlock"
+path = "src/bin/06_spinlock.rs"
+
+[[bin]]
+name = "07_double_checked"
+path = "src/bin/07_double_checked.rs"
+
+[[bin]]
+name = "08_hardware"
+path = "src/bin/08_hardware.rs"
+
+[[bin]]
+name = "09_acqrel"
+path = "src/bin/09_acqrel.rs"
+
+[[bin]]
+name = "10_queue"
+path = "src/bin/10_queue.rs"

@@ -1,0 +1,44 @@
+[package]
+name = "interior-mutability"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "01_cell"
+path = "src/bin/01_cell.rs"
+
+[[bin]]
+name = "02_cell_limitation"
+path = "src/bin/02_cell_limitation.rs"
+
+[[bin]]
+name = "03_refcell"
+path = "src/bin/03_refcell.rs"
+
+[[bin]]
+name = "04_refcell_guard"
+path = "src/bin/04_refcell_guard.rs"
+
+[[bin]]
+name = "05_mutex_vs_refcell"
+path = "src/bin/05_mutex_vs_refcell.rs"
+
+[[bin]]
+name = "06_rwlock"
+path = "src/bin/06_rwlock.rs"
+
+[[bin]]
+name = "07_spectrum"
+path = "src/bin/07_spectrum.rs"
+
+[[bin]]
+name = "08_same_rule"
+path = "src/bin/08_same_rule.rs"
+
+[[bin]]
+name = "09_conservative"
+path = "src/bin/09_conservative.rs"
+
+[[bin]]
+name = "10_shared_counter"
+path = "src/bin/10_shared_counter.rs"

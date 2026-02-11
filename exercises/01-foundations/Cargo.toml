@@ -1,0 +1,44 @@
+[package]
+name = "foundations"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "01_derived_data"
+path = "src/bin/01_derived_data.rs"
+
+[[bin]]
+name = "02_borrow_rule"
+path = "src/bin/02_borrow_rule.rs"
+
+[[bin]]
+name = "03_identity_validity"
+path = "src/bin/03_identity_validity.rs"
+
+[[bin]]
+name = "04_shadowing"
+path = "src/bin/04_shadowing.rs"
+
+[[bin]]
+name = "05_move"
+path = "src/bin/05_move.rs"
+
+[[bin]]
+name = "06_runtime_coherence"
+path = "src/bin/06_runtime_coherence.rs"
+
+[[bin]]
+name = "07_threads"
+path = "src/bin/07_threads.rs"
+
+[[bin]]
+name = "08_mutex"
+path = "src/bin/08_mutex.rs"
+
+[[bin]]
+name = "09_memory_ordering"
+path = "src/bin/09_memory_ordering.rs"
+
+[[bin]]
+name = "10_language_choices"
+path = "src/bin/10_language_choices.rs"

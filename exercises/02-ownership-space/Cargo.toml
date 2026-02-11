@@ -1,0 +1,44 @@
+[package]
+name = "ownership-space"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "01_const_vs_static"
+path = "src/bin/01_const_vs_static.rs"
+
+[[bin]]
+name = "02_stack_vs_heap"
+path = "src/bin/02_stack_vs_heap.rs"
+
+[[bin]]
+name = "03_box"
+path = "src/bin/03_box.rs"
+
+[[bin]]
+name = "04_rc"
+path = "src/bin/04_rc.rs"
+
+[[bin]]
+name = "05_rc_refcell"
+path = "src/bin/05_rc_refcell.rs"
+
+[[bin]]
+name = "06_arc"
+path = "src/bin/06_arc.rs"
+
+[[bin]]
+name = "07_arc_mutex"
+path = "src/bin/07_arc_mutex.rs"
+
+[[bin]]
+name = "08_weak"
+path = "src/bin/08_weak.rs"
+
+[[bin]]
+name = "09_drop_order"
+path = "src/bin/09_drop_order.rs"
+
+[[bin]]
+name = "10_space_layout"
+path = "src/bin/10_space_layout.rs"

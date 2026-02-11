@@ -1,0 +1,44 @@
+[package]
+name = "synthesis"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "01_coherence_strategy"
+path = "src/bin/01_coherence_strategy.rs"
+
+[[bin]]
+name = "02_weak_cycles"
+path = "src/bin/02_weak_cycles.rs"
+
+[[bin]]
+name = "03_thread_pool"
+path = "src/bin/03_thread_pool.rs"
+
+[[bin]]
+name = "04_choosing_types"
+path = "src/bin/04_choosing_types.rs"
+
+[[bin]]
+name = "05_custom_rc"
+path = "src/bin/05_custom_rc.rs"
+
+[[bin]]
+name = "06_message_vs_shared"
+path = "src/bin/06_message_vs_shared.rs"
+
+[[bin]]
+name = "07_observer"
+path = "src/bin/07_observer.rs"
+
+[[bin]]
+name = "08_lockfree_stack"
+path = "src/bin/08_lockfree_stack.rs"
+
+[[bin]]
+name = "09_analyze_crate"
+path = "src/bin/09_analyze_crate.rs"
+
+[[bin]]
+name = "10_design_own"
+path = "src/bin/10_design_own.rs"

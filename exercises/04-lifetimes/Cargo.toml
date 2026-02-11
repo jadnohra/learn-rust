@@ -1,0 +1,44 @@
+[package]
+name = "lifetimes"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "01_lifetime_validity"
+path = "src/bin/01_lifetime_validity.rs"
+
+[[bin]]
+name = "02_two_inputs"
+path = "src/bin/02_two_inputs.rs"
+
+[[bin]]
+name = "03_elision"
+path = "src/bin/03_elision.rs"
+
+[[bin]]
+name = "04_structs"
+path = "src/bin/04_structs.rs"
+
+[[bin]]
+name = "05_static"
+path = "src/bin/05_static.rs"
+
+[[bin]]
+name = "06_nll"
+path = "src/bin/06_nll.rs"
+
+[[bin]]
+name = "07_value_tracking"
+path = "src/bin/07_value_tracking.rs"
+
+[[bin]]
+name = "08_conservative"
+path = "src/bin/08_conservative.rs"
+
+[[bin]]
+name = "09_restructure"
+path = "src/bin/09_restructure.rs"
+
+[[bin]]
+name = "10_unsafe"
+path = "src/bin/10_unsafe.rs"
