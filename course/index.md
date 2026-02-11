@@ -44,6 +44,10 @@ If you are new to programming or new to systems languages, start with [The Rust 
     </a>
   </li>
   <li>
+    <span class="ch-num">04</span> ...
+    <span class="ch-desc">This chapter and subsequent chapters are a work in progress.</span>
+  </li>
+  <li>
     <a href="/learn-rust/exercises/">
       <span class="ch-num">&nbsp;~&nbsp;</span> Exercises
       <span class="ch-desc">Hands-on exercises organized around the framework, not language features. Starts with the explicit! macro — a companion crate that makes Rust's implicit operations visible.</span>
