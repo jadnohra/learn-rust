@@ -8,7 +8,7 @@ permalink: /learn-rust/
 
 <p class="subtitle">A mental model for Rust's memory system — for programmers who already know C++.</p>
 
-This course exists because I cannot memorize rules and never could. If I understand the system that produces the rules, I remember it for years, because systems have structure and structure compresses. Give me the systems.
+This course exists because I cannot memorize rules and never could. If I understand the system that produces the rules, I remember it for years, because systems have structure and structure compresses.
 
 [Rust](https://www.rust-lang.org/) tutorials gave me rules such as "one mutable reference or many immutable," "moves invalidate the source," and "lifetimes must not outlive their referent." Rules without a system underneath are needless pedantic abstractions that dissolve the moment you hit something new.
 
