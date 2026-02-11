@@ -19,7 +19,7 @@ Declarations come first because they are the vocabulary. Foundations come second
 
 ## The sections
 
-**[0 · Declarations.](https://github.com/jadnohra/learn-rust/tree/main/exercises/00-declarations/src/bin)** The `explicit!` notation and its mapping to real Rust. Every combination of `owner`/`name`, `take`/`mem_copy`/`coord_shared`/`coord_exclusive`, and `rebindable`. 21 exercises.
+**[0 · Declarations.](#0--declarations)** The `explicit!` notation and its mapping to real Rust. Every combination of `owner`/`name`, `take`/`mem_copy`/`coord_shared`/`coord_exclusive`, and `rebindable`. 21 exercises.
 
 **[1 · Foundations.](https://github.com/jadnohra/learn-rust/tree/main/exercises/01-foundations/src/bin)** Derived data, the borrow rule, identity and validity, shadowing, move semantics, runtime coherence, threads, mutexes, memory ordering, and language design choices. The problems Rust exists to solve, seen from first principles. 10 exercises.
 
