@@ -45,10 +45,10 @@ If you are new to programming or new to systems languages, start with [The Rust 
       <span class="ch-desc">Before: Has framework: SPACE, TIME, COORDINATES. Does not know how a compiler could detect these problems.<br>After: Understands how Rust makes compile-time coordinate analysis possible. Ready for lifetime syntax and mechanics.</span>
     </a>
   </li>
+  <li>
+    <a href="/learn-rust/exercises/">
+      <span class="ch-num">&nbsp;~&nbsp;</span> Exercises
+      <span class="ch-desc">Hands-on exercises organized around the framework, not language features. Starts with the explicit! macro — a companion crate that makes Rust's implicit operations visible.</span>
+    </a>
+  </li>
 </ul>
-
----
-
-## [Exercises](/learn-rust/exercises/)
-
-The course includes hands-on exercises organized around the framework, not language features. Starts with the `explicit!` macro — a companion crate that makes Rust's implicit operations visible.
