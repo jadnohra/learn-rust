@@ -58,27 +58,20 @@ This compiles and runs. It does the same thing as `let y = x`, but it says what 
 
 The left side of a `let` says what the binding receives.
 
-`owner(y)` means y receives ownership. It controls when the space dies.
-
-`name(r)` means r receives coordinates to space owned elsewhere. A reference.
-
-Adding `rebindable()` means the binding can be pointed at something else later.
+- `owner(y)` — y receives ownership. It controls when the space dies.
+- `name(r)` — r receives coordinates to space owned elsewhere. A reference.
+- `rebindable()` — the binding can be pointed at something else later.
 
 ### The right side
 
 The right side says what happens to the source.
 
-`take(x)` transfers ownership. x becomes invalid.
-
-`mem_copy(x)` duplicates the bytes. x stays valid.
-
-`take_or_mem_copy(x)` lets the compiler decide based on the type. Copy types get copied, everything else gets moved.
-
-`coord_shared(x)` creates shared coordinates. Multiple allowed at the same time.
-
-`coord_exclusive(x)` creates exclusive coordinates. Only one allowed.
-
-`at(r)` follows coordinates to get the value.
+- `take(x)` — transfers ownership. x becomes invalid.
+- `mem_copy(x)` — duplicates the bytes. x stays valid.
+- `take_or_mem_copy(x)` — lets the compiler decide based on the type. Copy types get copied, everything else gets moved.
+- `coord_shared(x)` — creates shared coordinates. Multiple allowed at the same time.
+- `coord_exclusive(x)` — creates exclusive coordinates. Only one allowed.
+- `at(r)` — follows coordinates to get the value.
 
 ### The exercises
 
