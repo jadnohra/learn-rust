@@ -4,7 +4,7 @@ title: Learn Rust
 permalink: /learn-rust/
 ---
 
-# Learn Rust
+# <i class="fab fa-rust"></i> Learn Rust
 
 <p class="subtitle">A mental model for Rust's memory system — for programmers who already know C++.</p>
 
