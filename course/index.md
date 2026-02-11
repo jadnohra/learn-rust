@@ -10,11 +10,11 @@ permalink: /learn-rust/
 
 I cannot memorize rules and never could. Give me the system that produces those rules and I will remember it for years, because systems have structure and structure compresses.
 
-Rust tutorials gave me rules such as "one mutable reference or many immutable," "moves invalidate the source," and "lifetimes must not outlive their referent." Rules without a system underneath are needless pedantic abstractions that dissolve the moment you hit something new.
+[Rust](https://www.rust-lang.org/) tutorials gave me rules such as "one mutable reference or many immutable," "moves invalidate the source," and "lifetimes must not outlive their referent." Rules without a system underneath are needless pedantic abstractions that dissolve the moment you hit something new.
 
 Stack architecture, computability constraints, and Rice's theorem sit underneath the Rust language and explain every decision the borrow checker makes. Dig into them and the rules stop requiring memorization because they become derivable. The borrow checker becomes a consequence of what memory is, what compilers can analyze, and what tradeoffs Rust chose.
 
-I did not find that path in any existing course. [The Rust Book](https://doc.rust-lang.org/book/), [Google's Comprehensive Rust](https://google.github.io/comprehensive-rust/), [r4cppp](https://github.com/nrc/r4cppp), [Codecademy](https://www.codecademy.com/learn/learn-rust), and [Udemy](https://www.udemy.com/topic/rust/) teach the rules well. This course derives them. SPACE x TIME x COORDINATES is a framework for memory bugs. Use-after-free, data races, and dangling references are failures in one of these three dimensions. The course builds the framework first, and the borrow checker falls out of it.
+I did not find that path in any existing course. [The Rust Book](https://doc.rust-lang.org/book/), [Google's Comprehensive Rust](https://google.github.io/comprehensive-rust/), [r4cppp](https://github.com/nrc/r4cppp), [Codecademy](https://www.codecademy.com/learn/rust-for-programmers), and [Udemy](https://www.udemy.com/topic/rust/) teach the rules well. This course derives them. SPACE x TIME x COORDINATES is a framework for memory bugs. Use-after-free, data races, and dangling references are failures in one of these three dimensions. The course builds the framework first, and the borrow checker falls out of it.
 
 ### Who it's for
 
