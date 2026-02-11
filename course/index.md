@@ -6,8 +6,6 @@ permalink: /learn-rust/
 
 # <i class="fab fa-rust"></i> Learn Rust
 
-<p class="subtitle">A mental model for Rust's memory system — for programmers who already know C++.</p>
-
 This course exists because I cannot memorize rules and never could. If I understand the system that produces the rules, I remember it for years, because systems have structure and structure compresses.
 
 [Rust](https://www.rust-lang.org/) tutorials gave me rules such as "one mutable reference or many immutable," "moves invalidate the source," and "lifetimes must not outlive their referent." Stack architecture, computability constraints, and Rice's theorem sit underneath these rules and explain every decision Rust's designers made. Dig into them and the rules stop requiring memorization because they become derivable. The borrow checker becomes a consequence of what memory is, what compilers can analyze, and what tradeoffs Rust chose.
