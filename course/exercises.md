@@ -19,19 +19,19 @@ Declarations come first because they are the vocabulary. Foundations come second
 
 ## The sections
 
-**0 · Declarations.** The `explicit!` notation and its mapping to real Rust. Every combination of `owner`/`name`, `take`/`mem_copy`/`coord_shared`/`coord_exclusive`, and `rebindable`. 21 exercises.
+**[0 · Declarations.](https://github.com/jadnohra/learn-rust/tree/main/exercises/00-declarations/src/bin)** The `explicit!` notation and its mapping to real Rust. Every combination of `owner`/`name`, `take`/`mem_copy`/`coord_shared`/`coord_exclusive`, and `rebindable`. 21 exercises.
 
-**1 · Foundations.** Derived data, the borrow rule, identity and validity, shadowing, move semantics, runtime coherence, threads, mutexes, memory ordering, and language design choices. The problems Rust exists to solve, seen from first principles. 10 exercises.
+**[1 · Foundations.](https://github.com/jadnohra/learn-rust/tree/main/exercises/01-foundations/src/bin)** Derived data, the borrow rule, identity and validity, shadowing, move semantics, runtime coherence, threads, mutexes, memory ordering, and language design choices. The problems Rust exists to solve, seen from first principles. 10 exercises.
 
-**2 · Ownership Space.** Where values live. `const` vs `static`, stack vs heap, `Box`, `Rc`, `RefCell`, `Arc`, `Mutex`, `Weak`, drop order, and memory layout. 10 exercises.
+**[2 · Ownership Space.](https://github.com/jadnohra/learn-rust/tree/main/exercises/02-ownership-space/src/bin)** Where values live. `const` vs `static`, stack vs heap, `Box`, `Rc`, `RefCell`, `Arc`, `Mutex`, `Weak`, drop order, and memory layout. 10 exercises.
 
-**3 · Interior Mutability.** `Cell`, `RefCell`, `Mutex`, `RwLock`, and the spectrum between compile-time and runtime enforcement. Shared mutation still obeys the borrow rule, but the enforcement moves to runtime. 10 exercises.
+**[3 · Interior Mutability.](https://github.com/jadnohra/learn-rust/tree/main/exercises/03-interior-mutability/src/bin)** `Cell`, `RefCell`, `Mutex`, `RwLock`, and the spectrum between compile-time and runtime enforcement. Shared mutation still obeys the borrow rule, but the enforcement moves to runtime. 10 exercises.
 
-**4 · Lifetimes.** Validity, multiple inputs, elision rules, lifetimes in structs, `'static`, non-lexical lifetimes, value tracking, conservative analysis, restructuring code, and `unsafe` as an escape hatch. 10 exercises.
+**[4 · Lifetimes.](https://github.com/jadnohra/learn-rust/tree/main/exercises/04-lifetimes/src/bin)** Validity, multiple inputs, elision rules, lifetimes in structs, `'static`, non-lexical lifetimes, value tracking, conservative analysis, restructuring code, and `unsafe` as an escape hatch. 10 exercises.
 
-**5 · Memory Ordering.** Visibility, store buffers, release/acquire, `SeqCst`, `Relaxed`, spinlocks, double-checked locking, hardware models, acquire-release pairs, and lock-free queues. 10 exercises.
+**[5 · Memory Ordering.](https://github.com/jadnohra/learn-rust/tree/main/exercises/05-memory-ordering/src/bin)** Visibility, store buffers, release/acquire, `SeqCst`, `Relaxed`, spinlocks, double-checked locking, hardware models, acquire-release pairs, and lock-free queues. 10 exercises.
 
-**6 · Synthesis.** Coherence strategies, weak reference cycles, thread pools, choosing between type strategies, implementing `Rc` from scratch, message passing vs shared state, the observer pattern, a lock-free stack, analyzing a real crate, and designing your own ownership scheme. 10 exercises.
+**[6 · Synthesis.](https://github.com/jadnohra/learn-rust/tree/main/exercises/06-synthesis/src/bin)** Coherence strategies, weak reference cycles, thread pools, choosing between type strategies, implementing `Rc` from scratch, message passing vs shared state, the observer pattern, a lock-free stack, analyzing a real crate, and designing your own ownership scheme. 10 exercises.
 
 ---
 
