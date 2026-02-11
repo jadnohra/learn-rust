@@ -7,6 +7,8 @@ permalink: /learn-rust/exercises/
 
 # Exercises
 
+> **This page and its exercises are a work in progress.**
+
 ## How these are organized
 
 Most Rust courses organize exercises around language features. Structs, then enums, then traits, then generics, then lifetimes, then concurrency. The progression follows the language's syntax, from simple constructs to complex ones.
