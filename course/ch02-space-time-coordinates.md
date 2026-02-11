@@ -12,7 +12,7 @@ The previous chapter showed Rust catching bugs that C++ misses. This chapter ste
 
 These bugs are not accidents of language design. They are not quirks of C++. They appear in every language that allows mutable state and shared memory. They appear because of physics.
 
-This chapter builds a framework for understanding memory bugs. The framework is abstract. It applies to CPU caches, databases, distributed systems, and programming languages alike. We start here because Rust's solution only makes sense once the problem is clear. The next chapters will connect this framework to Rust's specific rules. The framework will reappear throughout the course, linking what might otherwise seem like unrelated features.
+This chapter builds a framework for understanding memory bugs. The framework is abstract. It applies to CPU caches, databases, distributed systems, and programming languages alike. (Inspired by the [Abstractor](/abstractor/).) We start here because Rust's solution only makes sense once the problem is clear. The next chapters will connect this framework to Rust's specific rules. The framework will reappear throughout the course, linking what might otherwise seem like unrelated features.
 
 If you want to understand not just what Rust does, but why it does it, this is the foundation.
 
