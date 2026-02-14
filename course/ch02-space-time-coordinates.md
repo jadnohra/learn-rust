@@ -8,16 +8,16 @@ permalink: /learn-rust/space-time-coordinates/
 
 # Space, Time, Coordinates
 
-<details class="toc">
-<summary>Contents</summary>
-
-- [The Physics](#the-physics)
-- [Three Primitives](#three-primitives)
-- [Bugs as Interaction Failures](#bugs-as-interaction-failures)
-- [Paradigms and Languages](#paradigms-and-languages)
-- [Features as Interaction Solutions](#features-as-interaction-solutions)
-
-</details>
+<div class="toc" markdown="0">
+<p class="toc-title">Contents</p>
+<ul>
+<li><a href="#the-physics">The Physics</a></li>
+<li><a href="#three-primitives">Three Primitives</a></li>
+<li><a href="#bugs-as-interaction-failures">Bugs as Interaction Failures</a></li>
+<li><a href="#paradigms-and-languages">Paradigms and Languages</a></li>
+<li><a href="#features-as-interaction-solutions">Features as Interaction Solutions</a></li>
+</ul>
+</div>
 
 The previous chapter showed Rust catching bugs that C++ misses. This chapter identifies what those bugs are and why they exist.
 

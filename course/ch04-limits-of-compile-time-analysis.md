@@ -8,18 +8,18 @@ permalink: /learn-rust/limits-of-compile-time-analysis/
 
 # Limits of Compile-Time Analysis
 
-<details class="toc">
-<summary>Contents</summary>
-
-- [Where Branches Break the Analysis](#where-branches-break-the-analysis)
-- [Why Perfect Analysis Is Impossible](#why-perfect-analysis-is-impossible)
-- [Sound or Complete](#sound-or-complete)
-- [What the Compiler Can Distinguish](#what-the-compiler-can-distinguish)
-- [Why Compilers Skip Decidable Cases](#why-compilers-skip-decidable-cases)
-- [Rust-Specific Approximation: Signatures](#rust-specific-approximation-signatures)
-- [Escape Hatches](#escape-hatches)
-
-</details>
+<div class="toc" markdown="0">
+<p class="toc-title">Contents</p>
+<ul>
+<li><a href="#where-branches-break-the-analysis">Where Branches Break the Analysis</a></li>
+<li><a href="#why-perfect-analysis-is-impossible">Why Perfect Analysis Is Impossible</a></li>
+<li><a href="#sound-or-complete">Sound or Complete</a></li>
+<li><a href="#what-the-compiler-can-distinguish">What the Compiler Can Distinguish</a></li>
+<li><a href="#why-compilers-skip-decidable-cases">Why Compilers Skip Decidable Cases</a></li>
+<li><a href="#rust-specific-approximation-signatures">Rust-Specific Approximation: Signatures</a></li>
+<li><a href="#escape-hatches">Escape Hatches</a></li>
+</ul>
+</div>
 
 Chapter 3 showed how Rust's compiler traces COORDINATES through control flow graphs to detect dead SPACE access. The analysis works for straight-line code, where every statement executes in sequence. Branches change this.
 

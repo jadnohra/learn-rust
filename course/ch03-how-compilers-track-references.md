@@ -8,19 +8,19 @@ permalink: /learn-rust/how-compilers-track-references/
 
 # Catching Coherence at Compile Time
 
-<details class="toc">
-<summary>Contents</summary>
-
-- [Bindings and Addresses](#bindings-and-addresses)
-- [Why You Need Coordinates](#why-you-need-coordinates)
-- [Detecting Dead Space](#detecting-dead-space)
-- [Memory Architecture and Compiler Analysis](#memory-architecture-and-compiler-analysis)
-- [Why C++ Compilers Skip This Analysis](#why-c-compilers-skip-this-analysis)
-- [How Other Languages Approach This](#how-other-languages-approach-this)
-- [How Rust Enables the Analysis](#how-rust-enables-the-analysis)
-- [Using Data, Managing Space](#using-data-managing-space)
-
-</details>
+<div class="toc" markdown="0">
+<p class="toc-title">Contents</p>
+<ul>
+<li><a href="#bindings-and-addresses">Bindings and Addresses</a></li>
+<li><a href="#why-you-need-coordinates">Why You Need Coordinates</a></li>
+<li><a href="#detecting-dead-space">Detecting Dead Space</a></li>
+<li><a href="#memory-architecture-and-compiler-analysis">Memory Architecture and Compiler Analysis</a></li>
+<li><a href="#why-c-compilers-skip-this-analysis">Why C++ Compilers Skip This Analysis</a></li>
+<li><a href="#how-other-languages-approach-this">How Other Languages Approach This</a></li>
+<li><a href="#how-rust-enables-the-analysis">How Rust Enables the Analysis</a></li>
+<li><a href="#using-data-managing-space">Using Data, Managing Space</a></li>
+</ul>
+</div>
 
 Chapter 1 showed bugs that Rust catches and C++ misses. Chapter 2 explained why these bugs exist. They are coherence failures between SPACE, TIME, and COORDINATES. Most involve coordinates pointing to space that no longer exists.
 
