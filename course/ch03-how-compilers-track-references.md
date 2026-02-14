@@ -8,6 +8,20 @@ permalink: /learn-rust/how-compilers-track-references/
 
 # Catching Coherence at Compile Time
 
+<details class="toc">
+<summary>Contents</summary>
+
+- [Bindings and Addresses](#bindings-and-addresses)
+- [Why You Need Coordinates](#why-you-need-coordinates)
+- [Detecting Dead Space](#detecting-dead-space)
+- [Memory Architecture and Compiler Analysis](#memory-architecture-and-compiler-analysis)
+- [Why C++ Compilers Skip This Analysis](#why-c-compilers-skip-this-analysis)
+- [How Other Languages Approach This](#how-other-languages-approach-this)
+- [How Rust Enables the Analysis](#how-rust-enables-the-analysis)
+- [Using Data, Managing Space](#using-data-managing-space)
+
+</details>
+
 Chapter 1 showed bugs that Rust catches and C++ misses. Chapter 2 explained why these bugs exist. They are coherence failures between SPACE, TIME, and COORDINATES. Most involve coordinates pointing to space that no longer exists.
 
 This chapter examines how a compiler can catch these bugs, what it needs to track, why C++ compilers skip this analysis, and how Rust makes it possible.
@@ -613,6 +627,7 @@ The function took the string out and left an empty string in its place. The owne
 
 ---
 
-## Checkpoint
-
-The compiler needs two answers to catch coherence failures. Where does each coordinate point? When does each space become invalid? Rust makes both visible. Constrained references give every coordinate a traceable origin. Ownership ties heap lifetime to scope. Lifetime annotations encode the output-to-input mapping so the analysis works across function boundaries without seeing the implementation. Coordinates let code use data. Only owners manage space.
+<details>
+<summary>Checkpoint</summary>
+<p>The compiler needs two answers to catch coherence failures. Where does each coordinate point? When does each space become invalid? Rust makes both visible. Constrained references give every coordinate a traceable origin. Ownership ties heap lifetime to scope. Lifetime annotations encode the output-to-input mapping so the analysis works across function boundaries without seeing the implementation. Coordinates let code use data. Only owners manage space.</p>
+</details>

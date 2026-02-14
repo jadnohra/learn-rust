@@ -8,6 +8,19 @@ permalink: /learn-rust/limits-of-compile-time-analysis/
 
 # Limits of Compile-Time Analysis
 
+<details class="toc">
+<summary>Contents</summary>
+
+- [Where Branches Break the Analysis](#where-branches-break-the-analysis)
+- [Why Perfect Analysis Is Impossible](#why-perfect-analysis-is-impossible)
+- [Sound or Complete](#sound-or-complete)
+- [What the Compiler Can Distinguish](#what-the-compiler-can-distinguish)
+- [Why Compilers Skip Decidable Cases](#why-compilers-skip-decidable-cases)
+- [Rust-Specific Approximation: Signatures](#rust-specific-approximation-signatures)
+- [Escape Hatches](#escape-hatches)
+
+</details>
+
 Chapter 3 showed how Rust's compiler traces COORDINATES through control flow graphs to detect dead SPACE access. The analysis works for straight-line code, where every statement executes in sequence. Branches change this.
 
 ## Where Branches Break the Analysis
