@@ -8,7 +8,7 @@ permalink: /learn-rust/first-contact/
 
 # First Contact
 
-This chapter shows what looks the same and what looks different. Most Rust syntax matches C++. Some code that compiles in C++ does not compile in Rust. The compiler errors may seem opaque at first. The reason these programs are rejected, and the mechanism by which the compiler detects the problems, will become clear in later chapters.
+Most Rust syntax matches C++. Some code that compiles in C++ does not compile in Rust. The compiler errors look opaque at first. Later chapters explain why the compiler rejects these programs and how it detects the problems.
 
 If you've written C++, most Rust syntax will feel familiar. Functions, structs, loops, and vectors work the same way.
 
@@ -69,12 +69,10 @@ fn main() {
 
 <details>
 <summary>Checkpoint</summary>
-<p>You now recognize Rust syntax. You can read it.</p>
+<p>You see Rust syntax. You recognize it. You can read it.</p>
 </details>
 
 ---
-
-## Examples That Do Not Compile
 
 These examples do not compile:
 
@@ -203,16 +201,14 @@ fn main() {
 error[E0277]: `Rc<i32>` cannot be sent between threads safely
 ```
 
-None of these compile in Rust. They compile in C++ and contain memory bugs.
+These programs contain memory bugs. Rust's compiler rejects all of them. C++ compiles them.
 
 <details>
 <summary>Checkpoint</summary>
-<p>You now see buggy code that Rust rejects. You know the bugs. You don't know how Rust detects them.</p>
+<p>You see buggy code you recognize. You know these bugs. You see Rust rejects them. You do not know how Rust detects them.</p>
 </details>
 
 ---
-
-## The Dangling Reference Case
 
 The dangling reference case:
 
@@ -229,7 +225,7 @@ fn main() {
 
 `r` refers to `x`. The block ends. `x` is gone. `r` points to nothing.
 
-The C++ equivalent compiles and runs. It prints garbage, or crashes, or prints 5 by accident. The behavior is undefined.
+The C++ equivalent compiles and runs. It prints garbage, or crashes, or prints 5 by accident. The C++ standard leaves this behavior undefined.
 
 ```cpp
 int main() {
@@ -244,5 +240,5 @@ int main() {
 
 <details>
 <summary>Checkpoint</summary>
-<p>You now connect this Rust error to C++ undefined behavior. You know Rust catches bugs C++ misses. You don't know how yet.</p>
+<p>You see one example explained in detail. You connect the Rust error to C++ undefined behavior. You know Rust catches bugs C++ misses. You do not know how yet. You are curious.</p>
 </details>

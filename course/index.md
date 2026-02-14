@@ -42,7 +42,13 @@ If you are new to programming or new to systems languages, start with [The Rust 
     </a>
   </li>
   <li>
-    <span class="ch-num">04</span> ...
+    <a href="/learn-rust/limits-of-compile-time-analysis/">
+      <span class="ch-num">04</span> Limits of Compile-Time Analysis
+      <span class="ch-desc">Before: Understands how Rust makes compile-time coordinate analysis possible.<br>After: Understands why the compiler must be conservative and what trade-offs that creates.</span>
+    </a>
+  </li>
+  <li>
+    <span class="ch-num">05</span> ...
     <span class="ch-desc">This chapter and subsequent chapters are a work in progress.</span>
   </li>
   <li>

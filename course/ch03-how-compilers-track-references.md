@@ -8,13 +8,13 @@ permalink: /learn-rust/how-compilers-track-references/
 
 # Catching Coherence at Compile Time
 
-Chapter 1 showed bugs that Rust catches and C++ misses. Chapter 2 explained why these bugs exist: they are coherence failures between SPACE, TIME, and COORDINATES. Most involve coordinates pointing to space that no longer exists.
+Chapter 1 showed bugs that Rust catches and C++ misses. Chapter 2 explained why these bugs exist. They are coherence failures between SPACE, TIME, and COORDINATES. Most involve coordinates pointing to space that no longer exists.
 
-This chapter asks: how can a compiler catch these bugs? What would it need to track? Why doesn't C++ do this? And how does Rust make it possible?
+This chapter examines how a compiler can catch these bugs, what it needs to track, why C++ compilers skip this analysis, and how Rust makes it possible.
 
 <details>
 <summary>Checkpoint</summary>
-<p>You now know this chapter explains how a compiler could catch coordinate coherence failures. The question: what would that require?</p>
+<p>You understand this chapter explains how a compiler could catch coordinate coherence failures. You are motivated by the question: what would that require?</p>
 </details>
 
 ---
@@ -45,7 +45,7 @@ Through `r`, you can access `x`. Each binding has its own name, location, and li
 
 <details>
 <summary>Checkpoint</summary>
-<p>You now see the dangling reference analyzed in detail. You understand two bindings: x holds a value, r holds a COORDINATE. Taking an address creates a coherence obligation between independent lifetimes.</p>
+<p>You see the ch01 dangling reference analyzed in detail. You understand two bindings: <code>x</code> holds a value, <code>r</code> holds a COORDINATE. You understand that taking an address creates a coherence obligation between independent lifetimes.</p>
 </details>
 
 ---
@@ -60,7 +60,7 @@ Coordinates are syntactically independent and semantically dependent. Syntactica
 
 <details>
 <summary>Checkpoint</summary>
-<p>You now understand why we use "coordinate" as a term. You know coordinates are unavoidable: physics (copying costs), data structures (indirection required). You understand they are syntactically independent and semantically dependent. Coherence problems arise from semantics that syntax does not capture.</p>
+<p>You understand why we use "coordinate" as a term. You know coordinates are unavoidable: physics makes copying expensive, data structures require indirection. You understand coordinates are syntactically independent and semantically dependent. You see that coherence problems arise from semantics that syntax does not capture.</p>
 </details>
 
 ---
@@ -93,21 +93,21 @@ fn main() {
 ```
 
 ```
-       +---+
-       | A | let x = 5
-       +-+-+
-         v
-       +---+
-       | B | r = &x
-       +-+-+
-         v
-       +---+
-       | C | x dies (scope ends)
-       +-+-+
-         v
-       +---+
-       | D | *r -- ACCESS with dead space
-       +---+
+       ┌───┐
+       │ A │ let x = 5
+       └─┬─┘
+         ▼
+       ┌───┐
+       │ B │ r = &x
+       └─┬─┘
+         ▼
+       ┌───┐
+       │ C │ ✗ x dies (scope ends)
+       └─┬─┘
+         ▼
+       ┌───┐
+       │ D │ *r ← ACCESS with dead space ✗
+       └───┘
 ```
 
 The path from C to D exists. The compiler rejects.
@@ -132,37 +132,37 @@ fn example(flag: bool) {
 ```
 
 ```
-                   +---+
-                   | A | if flag
-                   +-+-+
-             +------+------+
-             v             v
-           +---+         +---+
-           | B |         | C |
-           |x=5|         |y=10|
-           |r=&x|        |r=&y|
-           +-+-+         | x | <-- y dies (scope ends)
-             |           +-+-+
-             v             v
-           +---+         +---+
-           | D |         | F |
-           |*r |         | x | <-- propagated
-           |safe|        +-+-+
-           +-+-+           |
-             |             |
-             +------+------+
-                    v
-                  +---+
-                  | G |
-                  |*r | <-- ACCESS, unsafe on else path
-                  +---+
+                   ┌───┐
+                   │ A │ if flag
+                   └─┬─┘
+             ┌──────┴──────┐
+             ▼             ▼
+           ┌───┐         ┌───┐
+           │ B │         │ C │
+           │x=5│         │y=10│
+           │r=&x│        │r=&y│
+           └─┬─┘         │ ✗ │ ← y dies (scope ends)
+             │           └─┬─┘
+             ▼             ▼
+           ┌───┐         ┌───┐
+           │ D │         │ F │
+           │*r │         │ ✗ │ ← propagated
+           │safe│        └─┬─┘
+           └─┬─┘           │
+             │             │
+             └──────┬──────┘
+                    ▼
+                  ┌───┐
+                  │ G │
+                  │*r │ ← ACCESS, unsafe on else path ✗
+                  └───┘
 ```
 
 The access at D is safe because no path from a death reaches it. The access at G is unsafe because a path from C reaches it through F. The compiler finds the unsafe path and rejects.
 
 <details>
 <summary>Checkpoint</summary>
-<p>You now understand that source text has hierarchical structure that the RAM model lacks. You know the compiler bridges them using intermediate representations like the control flow graph. Dead space detection is graph reachability: can any path lead from space death to coordinate access?</p>
+<p>You understand source text has hierarchical structure that the RAM model lacks. You know the compiler bridges them using intermediate representations like the control flow graph. You understand dead space detection as graph reachability: can any path lead from space death to coordinate access? You see both the simple linear example and the branching example.</p>
 </details>
 
 ---
@@ -180,14 +180,14 @@ Heap space dies when freed. Without constraints, the coordinate to heap space ca
 ```
 STACK ONLY (tree)              HEAP ONLY (graph)           WHAT WE HAVE (hybrid)
 
-    main                        +---+   +---+                 main
-    +-- foo                     | A |<--| B |             +-- foo ------+
-    |   +-- bar                 +-+-+   +---+             |   +-- bar   |
-    |       +-- baz               |       ^               |             v
-    +-- qux                       v       |               +-- qux    [heap]
-                                +---+   +-+-+                          ^
-                                | C |-->| D |                          |
-                                +---+   +---+              ------------+
+    main                        ┌───┐   ┌───┐                 main
+    ├── foo                     │ A │◄──│ B │             ├── foo ──────┐
+    │   └── bar                 └─┬─┘   └───┘             │   └── bar   │
+    │       └── baz               │       ▲               │             ▼
+    └── qux                       ▼       │               └── qux    [heap]
+                                ┌───┐   ┌─┴─┐                          ▲
+                                │ C │──►│ D │                          │
+                                └───┘   └───┘              ────────────┘
 
 Coords point UP only.          Coords point ANYWHERE.      Stack: tree. Heap: escapes.
 ```
@@ -198,7 +198,7 @@ The stack's lexical structure makes functions natural units for dead space detec
 
 <details>
 <summary>Checkpoint</summary>
-<p>You now understand the memory regions: static (always valid), stack (lexical structure visible), heap (no lexical structure). You know the compiler can see when stack coordinates are valid but not heap. The stack's lexical structure makes functions natural units for dead space detection.</p>
+<p>You understand memory regions: static (always valid), stack (lexical structure visible), heap (no lexical structure). You see the visual contrast between stack-only, heap-only, and hybrid memory. You know the compiler can see when stack coordinates are valid but not heap. You understand that stack's lexical structure makes functions natural units for dead space detection.</p>
 </details>
 
 ---
@@ -224,11 +224,11 @@ void* v = p;                      // type erased
 int** stored = &p;                // coordinate to coordinate
 ```
 
-In the next chapter, we will see why even without these obstacles, perfect analysis is still impossible.
+The next chapter examines why perfect analysis is impossible, even without these obstacles.
 
 <details>
 <summary>Checkpoint</summary>
-<p>You now understand why C++ compilers cannot do this analysis. You know the three obstacles: separate compilation (incomplete graph), function pointers (unknown destinations), unconstrained pointers (coordinates from nowhere).</p>
+<p>You understand why C++ compilers cannot do this analysis. You know the three obstacles: separate compilation (incomplete graph), function pointers (unknown destinations), unconstrained pointers (coordinates from nowhere). You understand that even with a complete graph, tracking is impossible without constraints on pointer operations.</p>
 </details>
 
 ---
@@ -247,14 +247,18 @@ In the next chapter, we will see why even without these obstacles, perfect analy
 
 <details>
 <summary>Checkpoint</summary>
-<p>You now know the landscape: no analysis (C/C++), static analyzers (heuristics), region annotations (Cyclone/ATS), garbage collection (runtime tracking), ownership (Rust). You understand GC inverts the problem: space lives as long as coordinates reach it.</p>
+<p>You know the landscape: no analysis (C/C++), static analyzers (heuristics), region annotations (Cyclone/ATS), garbage collection (runtime tracking), ownership (Rust). You understand GC inverts the problem: space lives as long as coordinates reach it. You know Rust is designed so the compiler can build the complete graph.</p>
 </details>
 
 ---
 
 ## How Rust Enables the Analysis
 
-The previous sections described two obstacles to compile-time coordinate analysis. Unconstrained pointers mean the compiler cannot track where coordinates point. Separate compilation means the compiler cannot see inside functions. Rust addresses both, and adds a third element that makes heap memory as predictable as stack memory.
+The previous sections described what a compiler would need to catch coherence failures, and why C++ cannot provide it. The compiler needs to answer two questions. Where does each coordinate point? When does each space become invalid? If the compiler can answer both, it can check whether any coordinate is used after its target space dies.
+
+C++ hides both answers. Coordinates can be fabricated from integers, computed via arithmetic, type-erased through `void*`. The compiler cannot trace them back to a source. Heap space can be freed anywhere by anyone. The compiler cannot predict when space becomes invalid.
+
+Rust makes both answers visible.
 
 ### Constrained Coordinates
 
@@ -293,7 +297,7 @@ Stack space has predictable lifetimes. A local variable lives from its declarati
 
 Heap space in C++ has unpredictable lifetimes. A `new` expression allocates space, and that space lives until some code calls `delete`. The coordinate to that space can travel through the program, copied into other variables, passed to functions, stored in data structures. Any code holding the coordinate can free the space. Any code holding a copy of the coordinate can use it afterward and find the space gone. Nothing in the source text tells the compiler when heap space will die.
 
-Rust makes heap lifetimes predictable by assigning exactly one owner to each allocation. The owner is a binding, and that binding has a scope. When the owner's scope ends, the owned space is deallocated. Heap lifetime becomes tied to owner scope, the same way stack lifetime is tied to function scope.
+Rust makes heap lifetimes predictable by assigning exactly one owner to each allocation. The owner is a binding, and that binding has a scope. Rust deallocates the owned space when the owner's scope ends. Heap lifetime follows owner scope, the same way stack lifetime follows function scope.
 
 ```rust
 fn example() {
@@ -318,25 +322,15 @@ At any moment, exactly one binding owns each allocation. The compiler tracks own
 
 This transforms the analysis. Without ownership, heap space can die at any point where code calls `free` or `delete`. The compiler would need to trace every path through the program to find all such points. With ownership, heap space dies at scope boundaries, and the compiler already sees those. Heap behaves like stack for the purposes of lifetime analysis.
 
-### What Crosses Function Boundaries
+### Separate Compilation
 
-Rust still has separate compilation. The compiler cannot see inside every function. The analysis must work without tracing paths through function bodies.
+Constrained coordinates and ownership make both questions answerable within a single function. The compiler traces each `&` to its source and finds each owner's scope end. Both answers are visible in the function body.
 
-The question is what a caller needs to know. A function body operates on space, time, and coordinates. It may create local variables, allocate heap, take addresses, and return values. The caller does not see these operations. The caller needs to know the net effect on lifetimes and coordinates.
+Separate compilation limits this. The compiler processes each function independently. It sees the signature of each function it calls. It does not see the body. If a function returns a reference, the caller cannot trace through the implementation to find where the reference points.
 
-Consider what a function can output. The output can point to one of four places.
+Function signatures solve this. The signature declares, for each output, what kind of thing the caller receives.
 
-**Space from an input.** The function received a reference to space owned by the caller. The output might point into that space.
-
-```rust
-fn first(list: &[i32]) -> &i32 {
-    &list[0]
-}
-```
-
-The output points into `list`. The caller must keep `list` alive while using the output.
-
-**New owned space.** The function allocated heap and returns ownership to the caller.
+**Owned output.** The function created new space and returns ownership to the caller.
 
 ```rust
 fn create() -> Vec<i32> {
@@ -344,19 +338,29 @@ fn create() -> Vec<i32> {
 }
 ```
 
-The output is new space. The caller receives ownership and controls when it dies. There is no connection to any input because the function created this space.
+The caller receives ownership. No connection to any input. The caller controls when this space dies.
 
-**Static space.** The function returns a reference to data that lives for the entire program.
+**Value output.** The function returns a plain value. No reference, no coordinate.
 
 ```rust
-fn greeting() -> &'static str {
-    "hello"
+fn length(list: &[i32]) -> usize {
+    list.len()
 }
 ```
 
-The output points to static space. It is always valid. There is no connection to any input.
+A value is self-contained. Nothing to track.
 
-**Local stack space.** The function's local variables die when the function returns. A reference to local stack space would dangle.
+**Borrowed output.** The function returns a reference that points into space owned by one of its inputs.
+
+```rust
+fn first(list: &[i32]) -> &i32 {
+    &list[0]
+}
+```
+
+The output points into `list`. The caller must keep `list` alive while using the output. This is the case where connection information matters. The signature must declare which inputs the output may borrow from.
+
+A function cannot return a reference to its own local stack space, because that space dies when the function returns. The compiler rejects this as an error.
 
 ```rust
 fn broken() -> &i32 {
@@ -365,46 +369,212 @@ fn broken() -> &i32 {
 }
 ```
 
-The compiler rejects this. An output cannot point to local stack space because that space does not survive the return.
+Static space is always valid and requires no tracking. These cases are straightforward and the compiler handles them without annotation.
 
-The four cases cover every possibility. Cases two and three require no tracking across function boundaries. Case four is an error the compiler catches. Case one is where connection information matters.
+The three output kinds cover what the caller needs to know. Owned and value outputs require no connection information. Borrowed outputs require the signature to declare which inputs the output connects to. This declaration is what Rust calls a lifetime annotation. The caller reads the signature instead of tracing the implementation. The compiler verifies each function independently, and the information needed for whole-program safety flows through signatures.
 
-### Why Connections Are Sufficient
+### Ownership Notation
 
-Ownership handles heap. The owner's scope determines when heap space dies. The compiler sees scope boundaries.
+The three output kinds determine what the caller's binding looks like. Rust's assignment syntax hides which kind applies. `let result = create()` and `let elem = first(&list)` look identical. One produces an owner. The other produces a name.
 
-Connections handle borrowed outputs. When a function returns a reference that points into input space, the caller needs to know which input. The caller keeps that input alive while using the output.
+The language hides these distinctions deliberately. A learner building the model for the first time does not have the experience to see through the syntax, and learning from notation that conceals the distinctions being taught means working against the medium.
 
-Together they cover everything.
+The course includes a companion crate called `notation` with a macro called `explicit!`. Inside the macro, every operation says what it does. This chapter uses `notation` as its primary syntax. Later chapters unpack the notation into standard Rust.
 
-A function signature in Rust encodes both. Owned outputs are indicated by owned types in the return position. Borrowed outputs are indicated by reference types with lifetime annotations that specify which inputs they connect to.
+```rust
+explicit! {
+    let owner(s) = take(String::from("hello"));          // s takes ownership of new string
+    let owner(t) = take(s);                              // t takes ownership from s, s invalid
+    let name(r) = coord_exclusive(t);                    // r is a coordinate to t's space
+    println!("{}", at(r));                                // follow the coordinate
+}
+```
 
-The following examples use a notation `input <& output` to mean that the output may hold a reference into the input's space. This is not Rust syntax. Rust's actual lifetime annotation syntax is covered in later chapters.
+The left side of each `let` declares the kind of binding. `owner` means the binding controls when space dies. `name` means the binding holds a coordinate to space owned elsewhere. The right side declares what happens. `take` means the binding takes ownership of the expression result. When the argument is an existing binding, that binding becomes invalid. When the argument is a constructor or literal, nothing else is affected. `coord_exclusive` creates an exclusive coordinate. `at` follows a coordinate to its target.
 
-| Function | Output kind | Connections |
-|----------|-------------|-------------|
-| `first(list) -> &i32` | borrowed | `list <& output` |
-| `search(map, key) -> &V` | borrowed | `map <& output` |
-| `either(a, b, flag) -> &i32` | borrowed | `a <& output`, `b <& output` |
-| `create() -> Vec<i32>` | owned | none needed |
-| `length(list) -> usize` | value | none needed |
-| `greeting() -> &'static str` | static | none needed |
+The vocabulary maps to the framework from Chapter 2. `owner` tracks SPACE x TIME. `name` tracks COORDINATES. `take` is an ownership transfer in TIME. `coord_exclusive` creates a COORDINATE with exclusive access. The macro makes the framework visible inside the syntax.
 
-For `first`, the output points into `list`. The caller must keep `list` alive.
+This chapter works with `owner`, `name`, `take`, `coord_exclusive`, and `at`. Coordinates come in two kinds. `coord_exclusive` grants read and write access. `coord_shared` grants read access and allows multiple coordinates to coexist. This chapter focuses on exclusive coordinates. `coord_shared` appears in some function signature examples, but the rules governing how the two kinds interact are the subject of the next chapter.
 
-For `search`, the output points into `map`, not `key`. The key is used only for lookup.
+### Output to Input Mapping
 
-For `either`, the output could come from either `a` or `b` depending on the flag. The caller must keep both alive.
+A function signature declares whether the caller receives an `owner` or a `name` for each output. Owned and value outputs produce `owner` bindings that the caller controls independently. Borrowed outputs produce `name` bindings that point into space the caller already owns.
 
-For `create`, the output is new owned space. The caller receives ownership. No connection to track.
+```
+// Owned output: caller receives ownership
+let owner(result) = create()
 
-For `length`, the output is a plain value, not a reference. Nothing to track.
+// Value output: caller receives a value
+let owner(n) = length(coord_shared(list))
 
-For `greeting`, the output points to static space. Always valid. No connection to track.
+// Borrowed output: caller receives a coordinate into input space
+let name(elem) = first(coord_shared(list))
+```
 
-Connection information in signatures replaces path tracing through function bodies. The caller does not need to see the function's code. The signature declares which inputs the output may borrow from. The caller uses that information to ensure those inputs outlive the output. Complete coverage without complete visibility.
+For borrowed outputs, the signature encodes which input the `name` connects to. The caller must keep that input alive while the `name` exists. This is what lifetime annotations encode.
+
+```
+first(list: &[i32]) -> &i32
+  caller: let name(o) = first(...)    // o borrows from list
+
+search(map: &Map, key: &K) -> &V
+  caller: let name(o) = search(...)   // o borrows from map
+
+either(a: &i32, b: &i32, flag: bool) -> &i32
+  caller: let name(o) = either(...)   // o borrows from a or b
+
+create() -> Vec<i32>
+  caller: let owner(o) = create()     // o owns new space
+
+length(list: &[i32]) -> usize
+  caller: let owner(o) = length(...)  // o is a value, self-contained
+```
+
+| Function | Output     | Borrows from | Caller keeps alive        |
+| -------- | ---------- | ------------ | ------------------------- |
+| `first`  | `name(o)`  | `list`       | `list`                    |
+| `search` | `name(o)`  | `map`        | `map` (key not in output) |
+| `either` | `name(o)`  | `a` or `b`   | both `a` and `b`          |
+| `create` | `owner(o)` | nothing      | nothing (caller controls) |
+| `length` | `owner(o)` | nothing      | nothing (self-contained)  |
+
+This is the output-to-input mapping that signatures declare. The caller reads the signature instead of tracing the function body. Each function is verified independently, and the mapping flows through signatures. This solves the separate compilation problem from the previous section. Later chapters cover how Rust encodes this mapping using lifetime annotation syntax.
 
 <details>
 <summary>Checkpoint</summary>
-<p>You now understand how Rust makes compile-time coordinate analysis possible. You know the constraints (constrained coordinates, heap lifetime control via ownership) and the encoding (connection information in function signatures replaces path tracing). You're ready for lifetime syntax and mechanics.</p>
+<p>You understand the compiler needs two answers: where each coordinate points, and when each space becomes invalid. You know Rust's design choices: constrained references (traceable origins) and ownership (heap lifetime tied to scope). You understand separate compilation is solved by signatures declaring output-to-input connections. You know the three output kinds (owned, value, borrowed) and see function outputs as <code>owner</code> or <code>name</code> bindings in the caller's scope.</p>
+</details>
+
+---
+
+## Using Data, Managing Space
+
+The previous sections described two kinds of bindings. An `owner` controls when space dies. A coordinate lets code use the data in space owned elsewhere. Using the data and managing the space are different operations, and Rust enforces the difference.
+
+A coordinate, even an exclusive one, lets code read and write the target data. It cannot free the space, move ownership out, or replace the allocation. Only the `owner` can manage the space.
+
+In `notation` syntax, the distinction looks like this.
+
+```rust
+explicit! {
+    let owner(b) = take(Box::new(String::from("hello")));  // b owns heap space
+    let name(r) = coord_exclusive(b);                      // r can read and write
+    // take(at(r)) would be invalid because r is a name, and names cannot own
+    // the path to the heap goes through a coordinate, so ownership cannot transfer
+}
+```
+
+The binding `b` is an owner. It controls when the string's heap space is deallocated. The binding `r` is a coordinate to `b`'s space. Through `r`, code can read the string and modify its contents. Through `r`, code cannot move the string to a new owner, because moving requires consuming the owner, and `r` is not the owner.
+
+If `r` were the owner, moving would work.
+
+```rust
+explicit! {
+    let owner(b) = take(Box::new(String::from("hello")));  // b owns heap space
+    let owner(s) = take(b);                                // ownership transfers, b invalid
+}
+```
+
+`take(b)` works because `b` is an `owner`. Ownership transfers to `s`, and `b` becomes invalid. The compiler forbids `take` through a `name`. Names let code use the data. Owners manage the space.
+
+The distinction makes the compiler's analysis airtight. A function that receives a `name` parameter cannot `take` through it, cannot destroy the space, cannot move ownership away. The caller knows that after the function returns, the space still exists. The function used the data through the `name`. Managing the space stayed with the `owner`. Signatures that declare `name` connections are telling the truth in full, because a `name` cannot do more than use the data.
+
+The control flow analysis from earlier in the chapter traced paths to find dead space access. The compiler marks where space dies and checks whether any path leads from death to access. The use-manage distinction simplifies this analysis at function boundaries.
+
+```
+let owner(s) = take(String::from("hello"))            // A
+something(coord_exclusive(s))                          // B: passes a name
+println!("{}", at(s))                                   // C: uses s
+```
+
+```
+     ┌───┐
+     │ A │ owner(s) created
+     └─┬─┘
+       ▼
+     ┌───┐
+     │ B │ something receives a name
+     └─┬─┘
+       ▼
+     ┌───┐
+     │ C │ at(s) — safe ✓
+     └───┘
+```
+
+The compiler asks whether `s`'s space can die between A and C. The function `something` receives a `name`. Names cannot `take`. The space survives the call. The access at C reaches live space.
+
+If the caller wrote `something(take(s))`, the function would receive an `owner`. The space might die inside the function body. The compiler would mark B as a potential death point and reject the access at C.
+
+The compiler does not need to see inside `something`. The signature declares whether each parameter is an `owner` or a `name`, and that declaration determines whether the caller's space can die during the call. This connects the use-manage distinction to the separate compilation problem from the previous section.
+
+### What C++ Allows
+
+C++ programmers know `unique_ptr` as the closest analog to Rust's ownership model. A `unique_ptr` owns heap space, and when it goes out of scope, the space is freed. A reference to a `unique_ptr` allows access to the owned data. So far, the analogy holds.
+
+The analogy breaks at space management. In C++, a reference to a `unique_ptr` can transfer ownership away from it.
+
+The following table shows what a function can do through an exclusive coordinate to an owner. The C++ columns show both a reference (`unique_ptr<string>&`) and a pointer (`unique_ptr<string>*`) to the same unique_ptr. The Rust column uses `spelled` syntax for `&mut Box<String>`.
+
+C++ references are syntactically transparent. Writing `*ref` already dereferences the unique_ptr, because the reference adds no visible layer. A pointer requires an explicit `*ptr` first, then another `*` through the unique_ptr. Rust's `at()` works like the pointer. Every coordinate is visible and requires an explicit `at()` to follow.
+
+| Operation        | C++ via `&` ref              | C++ via `*` ptr                | Rust via `name(r) = coord_exclusive(b)` |
+| ---------------- | ---------------------------- | ------------------------------ | --------------------------------------- |
+| Read value       | `*ref`                       | `**ptr`                        | `at(at(r))`                             |
+| Write value      | `*ref = v`                   | `**ptr = v`                    | `at(at(r)) = v`                         |
+| Call methods     | `ref->method()`              | `(*ptr)->method()`             | `at(r).method()`                        |
+| Move out         | `auto s = move(*ref)`        | `auto s = move(**ptr)`         | `take(at(r))` **forbidden**             |
+| Destroy space    | `ref.reset()`                | `ptr->reset()`                 | **forbidden**                           |
+| Replace contents | `ref = make_unique(v)`       | `*ptr = make_unique(v)`        | `mem::replace` (owner stays valid)      |
+
+The first three rows are using the data. Both languages allow this through any coordinate. The last three rows are managing the space. They free it, move ownership out, or replace the allocation. C++ allows a coordinate to manage the space. Rust does not. A `name` can use the data. Only an `owner` can manage the space.
+
+Passing by value transfers ownership in both languages. The receiver is the `owner` and can do anything. Shared coordinates (`const unique_ptr<T>&` in C++, `coord_shared` in Rust) restrict both languages to reading.
+
+```cpp
+void drain(std::unique_ptr<std::string>& ref) {
+    auto stolen = std::move(*ref);   // ref now holds nullptr
+    // caller's unique_ptr is gutted
+}
+```
+
+The function received a reference. Through that reference, it called `std::move` on the contents and took the string. The caller's `unique_ptr` is now empty. A coordinate was used to exercise authority over the space.
+
+In Rust, the equivalent is forbidden.
+
+```rust
+fn drain(r: &mut Box<String>) {
+    let stolen = *r;    // ERROR: cannot move out of `*r`
+}
+```
+
+The compiler rejects this. The binding `r` is a coordinate, and coordinates cannot move ownership out of the space they point to. The owner still holds authority. The function can read and write through `r`, but it cannot consume what `r` points to.
+
+`std::mem::replace` and `std::mem::take` appear to contradict this, because they operate through `&mut` references and produce owned values. They do not contradict it. Both functions swap the contents of the target space with a replacement value. The owner always owns something valid after the operation. The coordinate cannot orphan or destroy the space. The value inside the space changes. The space itself continues to exist.
+
+```rust
+fn replace_contents(r: &mut String) -> String {
+    std::mem::take(r)   // r now holds String::new(), caller's space still valid
+}
+```
+
+The function took the string out and left an empty string in its place. The owner still owns valid space. The coordinate swapped the contents and left the space intact.
+
+<details>
+<summary>Checkpoint</summary>
+<p>You understand coordinates let code use data, only owners manage space. Even exclusive coordinates cannot destroy space or transfer ownership. You know the C++ comparison: <code>std::move(*ref)</code> guts the owner through a reference, while Rust forbids it. You know <code>mem::take</code>/<code>mem::replace</code> are not exceptions because they swap and leave valid space. This makes the compiler's analysis airtight: signatures tell the full story because coordinates cannot exceed their role.</p>
+</details>
+
+---
+
+## Scope of This Chapter
+
+The analysis above focused on exclusive coordinates, the kind that grant full read and write access to a single target. One owner, one coordinate at a time. No aliasing. This is the simplest case, and it is where the distinction between using data and managing space is sharpest. A single coordinate cannot overstep into ownership territory.
+
+The function boundary examples used both shared and exclusive coordinates because both kinds appear in function signatures. The mechanism is the same for both. The signature declares what the caller receives, and the caller constructs the appropriate binding.
+
+The next chapter introduces the rule that governs how shared and exclusive coordinates interact. Shared coordinates allow multiple bindings to read the same space simultaneously. Exclusive coordinates allow one binding to read and write. The two cannot coexist for the same space at the same time. Understanding that rule requires the use-manage distinction as foundation.
+
+<details>
+<summary>Checkpoint</summary>
+<p>The analysis focused on exclusive coordinates. The next chapter introduces the rule governing how shared and exclusive coordinates interact. You understand how Rust makes compile-time coordinate analysis possible. You know the two design choices (constrained coordinates, ownership), the mechanism for function boundaries (signatures), and the use-manage distinction.</p>
 </details>

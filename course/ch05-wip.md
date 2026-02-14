@@ -2,7 +2,7 @@
 layout: course
 title: Work in Progress
 short_title: WIP
-chapter: 4
+chapter: 5
 permalink: /learn-rust/wip/
 ---
 
