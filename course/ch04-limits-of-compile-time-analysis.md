@@ -55,6 +55,11 @@ while |f(x)| > epsilon {
 
 Convergence depends on the function and starting point. For some inputs the method converges, for some it cycles forever, for some it diverges. No general prediction is possible.
 
+<details>
+<summary>Checkpoint</summary>
+<p>You see that branches create paths the compiler cannot resolve without evaluating runtime values. The Collatz sequence and Newton's method show you why arbitrary computation resists static prediction. You understand the compiler cannot determine which paths execute.</p>
+</details>
+
 ---
 
 ## Why Perfect Analysis Is Impossible
@@ -69,6 +74,11 @@ Rice's Theorem (1951) generalizes the result. Any non-trivial semantic property 
 
 These are mathematical impossibilities. They apply to any static analysis tool, in any language, built by any team.
 
+<details>
+<summary>Checkpoint</summary>
+<p>You understand the Halting Problem and its diagonal argument. Rice's Theorem generalizes the result to all non-trivial semantic properties. You see that "does this COORDINATE reach dead SPACE?" is undecidable. These are mathematical impossibilities, not tooling gaps.</p>
+</details>
+
 ---
 
 ## Sound or Complete
@@ -82,6 +92,11 @@ Perfect analysis is impossible, so the compiler must choose between two failures
 No compile-time analysis can be both sound and complete for questions about program behavior. Rust chooses soundness. The asymmetry between failure modes makes this the right tradeoff. Accepting unsafe code means security vulnerabilities and undefined behavior. Rejecting safe code means restructuring or using escape hatches.
 
 Ownership tracking aligns with how most programs are structured. Most safe code passes the compiler's analysis. The restrictions feel limiting at first but rarely block real work.
+
+<details>
+<summary>Checkpoint</summary>
+<p>You see the compiler must choose between accepting unsafe code and rejecting safe code. You know soundness (never accept unsafe) and completeness (never reject safe). You understand Rust chooses soundness because the failure modes are asymmetric.</p>
+</details>
 
 ---
 
@@ -103,6 +118,11 @@ The analysis tracks COORDINATES. The granularity of that tracking determines whi
 
 Branches and pointer aliasing share this structure. Whether `*p` and `*q` point to the same SPACE depends on runtime values. Whether the same branch executes twice depends on runtime values. The compiler assumes worst case for both.
 
+<details>
+<summary>Checkpoint</summary>
+<p>You understand the granularity of COORDINATE tracking. Struct fields are distinguishable. Literal array indices could be but are not. Computed array indices are undecidable. You see that branches and pointer aliasing share the same structure. The compiler assumes worst case for both.</p>
+</details>
+
 ---
 
 ## Why Compilers Skip Decidable Cases
@@ -112,6 +132,11 @@ The literal index `v[0]` is decidable. So is a function call `pick(&a, &b, true)
 General-purpose compilers prioritize predictability over precision. Code that compiles with `true` but fails with `some_function()` confuses users. Identifying which expressions fall into decidable subsets is itself expensive, and coverage is narrow. Specialized compilers do analyze decidable cases. Fortran compilers use polyhedral analysis for loop parallelization. ML frameworks require static tensor shapes. The techniques exist and work for specific domains.
 
 Rust chose consistent approximate analysis. The compiler treats all index expressions and all branch conditions the same way. A program that compiles with a constant will still compile when that constant becomes a variable.
+
+<details>
+<summary>Checkpoint</summary>
+<p>You understand that general-purpose compilers prioritize predictability over precision. Specialized compilers (Fortran, ML frameworks) analyze decidable subsets. Rust chose consistent approximate analysis. A program that compiles with a constant still compiles when that constant becomes a variable.</p>
+</details>
 
 ---
 
@@ -138,6 +163,11 @@ let r2 = d.get_field2(); // signature says: borrows d
 Signatures encode COORDINATE connections at struct granularity. Field-level information does not cross function boundaries. Types describe whole structs, and connections are encoded through types.
 
 These are the fundamental and Rust-specific limits. The remaining question is what to do when they cause the compiler to reject valid code.
+
+<details>
+<summary>Checkpoint</summary>
+<p>You know signatures encode COORDINATE connections at struct granularity. Field-level information does not cross function boundaries. You connect this to ch03's signature mechanism.</p>
+</details>
 
 ---
 
@@ -230,6 +260,11 @@ Determining whether a node in a runtime-constructed graph is still reachable req
 
 Rust chose compile-time ownership over runtime tracing. The cost surfaces when cycles are needed. The options are reference counting (`Rc` + `RefCell`), arenas that use indices instead of COORDINATES, or manual management with `unsafe`.
 
+<details>
+<summary>Checkpoint</summary>
+<p>You know the four levels of escape hatches. Restructure the code when the signature approximation causes false rejection. Encode invariants in types using unsafe internally and safe interfaces externally (the split_at_mut pattern). Move verification to runtime (RefCell, Mutex, RwLock, Rc, Arc) when static analysis is too conservative. Cyclic structures do not fit tree-shaped ownership — the options are Rc + RefCell, arenas, or unsafe.</p>
+</details>
+
 ---
 
 ## Scope of This Chapter
@@ -237,3 +272,8 @@ Rust chose compile-time ownership over runtime tracing. The cost surfaces when c
 The compiler answers chapter 3's two questions with a sound approximation. Where do COORDINATES point? Trace the references. When does SPACE become invalid? Find the owner's scope end. The approximation rejects some valid programs. Escape hatches handle each case. Restructure the code, encode invariants in types, move verification to runtime, or assert correctness with `unsafe`.
 
 The analysis so far has used `coord_exclusive`, one COORDINATE to one SPACE at a time. No aliasing. The next chapter introduces `coord_shared`, where multiple COORDINATES to the same SPACE coexist. Multiple readers are safe. A reader and a writer are not. The compiler needs a new rule for that.
+
+<details>
+<summary>Checkpoint</summary>
+<p>You understand why perfect analysis is impossible, why Rust chooses soundness, and what to do when the compiler rejects valid code. You are ready for shared coordinates and the aliasing rule.</p>
+</details>

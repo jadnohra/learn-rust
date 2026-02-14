@@ -438,11 +438,58 @@ length(list: &[i32]) -> usize
 | `create` | `owner(o)` | nothing      | nothing (caller controls) |
 | `length` | `owner(o)` | nothing      | nothing (self-contained)  |
 
-This is the output-to-input mapping that signatures declare. The caller reads the signature instead of tracing the function body. Each function is verified independently, and the mapping flows through signatures. This solves the separate compilation problem from the previous section. Later chapters cover how Rust encodes this mapping using lifetime annotation syntax.
+This is the output-to-input mapping that signatures declare. The caller reads the signature instead of tracing the function body. Each function is verified independently, and the mapping flows through signatures. This solves the separate compilation problem from the previous section.
+
+### Lifetime Annotations
+
+Rust encodes the output-to-input mapping with lifetime annotations. Each `'a` is a label. The same label on an input and an output means "the output borrows from this input."
+
+```rust
+fn first<'a>(list: &'a [i32]) -> &'a i32
+//                  ^^              ^^  same label: output borrows from list
+
+fn search<'a, 'b>(map: &'a Map, key: &'b K) -> &'a V
+//                      ^^                       ^^  output borrows from map, not key
+
+fn either<'a>(a: &'a i32, b: &'a i32, flag: bool) -> &'a i32
+//                ^^           ^^                      ^^  output borrows from both
+```
+
+The notation made the concept visible. The `'a` syntax is how Rust encodes it in the type system. Same information, different spelling.
+
+### C++ Has No Equivalent
+
+C++ programmers write functions that return references. The signatures look similar.
+
+```cpp
+const int& first(const vector<int>& list);
+const V& search(const Map& map, const K& key);
+const int& either(const int& a, const int& b, bool flag);
+```
+
+The C++ caller reads `const int& first(const vector<int>& list)` and knows the output is a reference. The signature does not say where it points. It might point into `list`. It might point to a static. It might point to a member variable of some object. The caller must read the implementation or trust documentation.
+
+The Rust caller reads `fn first<'a>(list: &'a [i32]) -> &'a i32` and the same `'a` answers the question. The output points into `list`.
+
+| C++ signature | Rust signature | What Rust adds |
+|---|---|---|
+| `const int& first(const vector<int>& list)` | `fn first<'a>(list: &'a [i32]) -> &'a i32` | Output borrows from `list` |
+| `const V& search(const Map& map, const K& key)` | `fn search<'a, 'b>(map: &'a Map, key: &'b K) -> &'a V` | Output borrows from `map`, not `key` |
+| `const int& either(const int& a, const int& b, bool flag)` | `fn either<'a>(a: &'a i32, b: &'a i32, flag: bool) -> &'a i32` | Output borrows from both |
+
+### The Compiler Checks Both Sides
+
+The signature is a contract. The compiler enforces it in two places independently.
+
+At the call site, the compiler reads the signature and requires the caller to keep the borrowed inputs alive while the output exists. The compiler does not need the function body. A function pointer, a trait object, a function from another crate — the caller-side analysis works the same way, because the signature carries the mapping.
+
+When the compiler does have the function body, it verifies that the implementation matches the signature. If the signature says the output borrows from `list`, the body must return a reference derived from `list`. Returning a reference to a local variable, or to the wrong input, is a compile error.
+
+The two checks are independent. The caller-side analysis never needs the body. The body-side check never needs the call site. Lifetime annotations solve the separate compilation problem by encoding everything the caller needs into the signature.
 
 <details>
 <summary>Checkpoint</summary>
-<p>You understand the compiler needs two answers: where each coordinate points, and when each space becomes invalid. You know Rust's design choices: constrained references (traceable origins) and ownership (heap lifetime tied to scope). You understand separate compilation is solved by signatures declaring output-to-input connections. You know the three output kinds (owned, value, borrowed) and see function outputs as <code>owner</code> or <code>name</code> bindings in the caller's scope.</p>
+<p>You understand the compiler needs two answers: where each coordinate points, and when each space becomes invalid. You know Rust's design choices: constrained references (traceable origins) and ownership (heap lifetime tied to scope). You understand separate compilation is solved by signatures declaring output-to-input connections. You know the three output kinds (owned, value, borrowed) and see function outputs as <code>owner</code> or <code>name</code> bindings in the caller's scope. You know the <code>'a</code> syntax: the same label on an input and output means "the output borrows from this input." You understand the compiler checks both sides of the signature contract independently.</p>
 </details>
 
 ---
@@ -566,15 +613,6 @@ The function took the string out and left an empty string in its place. The owne
 
 ---
 
-## Scope of This Chapter
+## Checkpoint
 
-The analysis above focused on exclusive coordinates, the kind that grant full read and write access to a single target. One owner, one coordinate at a time. No aliasing. This is the simplest case, and it is where the distinction between using data and managing space is sharpest. A single coordinate cannot overstep into ownership territory.
-
-The function boundary examples used both shared and exclusive coordinates because both kinds appear in function signatures. The mechanism is the same for both. The signature declares what the caller receives, and the caller constructs the appropriate binding.
-
-The next chapter introduces the rule that governs how shared and exclusive coordinates interact. Shared coordinates allow multiple bindings to read the same space simultaneously. Exclusive coordinates allow one binding to read and write. The two cannot coexist for the same space at the same time. Understanding that rule requires the use-manage distinction as foundation.
-
-<details>
-<summary>Checkpoint</summary>
-<p>The analysis focused on exclusive coordinates. The next chapter introduces the rule governing how shared and exclusive coordinates interact. You understand how Rust makes compile-time coordinate analysis possible. You know the two design choices (constrained coordinates, ownership), the mechanism for function boundaries (signatures), and the use-manage distinction.</p>
-</details>
+The compiler needs two answers to catch coherence failures. Where does each coordinate point? When does each space become invalid? Rust makes both visible. Constrained references give every coordinate a traceable origin. Ownership ties heap lifetime to scope. Lifetime annotations encode the output-to-input mapping so the analysis works across function boundaries without seeing the implementation. Coordinates let code use data. Only owners manage space.
