@@ -25,35 +25,35 @@ If you are new to programming or new to systems languages, start with [The Rust 
 <ul class="chapter-list">
   <li>
     <a href="/learn-rust/first-contact/">
-      <span class="ch-num">01</span> First Contact
+      <span class="ch-num">01</span> <span class="ch-title">First Contact</span>
       <span class="ch-desc">Before: Experienced C++ programmer. Has not written Rust.<br>After: Knows Rust catches bugs C++ misses. Does not know how yet. Curious.</span>
     </a>
   </li>
   <li>
     <a href="/learn-rust/space-time-coordinates/">
-      <span class="ch-num">02</span> Space, Time, Coordinates
+      <span class="ch-num">02</span> <span class="ch-title">Space, Time, Coordinates</span>
       <span class="ch-desc">Before: Knows Rust catches bugs C++ misses. Does not know how.<br>After: Has a framework for understanding memory bugs. Ready to see how Rust applies these ideas.</span>
     </a>
   </li>
   <li>
     <a href="/learn-rust/how-compilers-track-references/">
-      <span class="ch-num">03</span> Catching Coherence at Compile Time
+      <span class="ch-num">03</span> <span class="ch-title">Catching Coherence at Compile Time</span>
       <span class="ch-desc">Before: Has framework: SPACE, TIME, COORDINATES. Does not know how a compiler could detect these problems.<br>After: Understands how Rust makes compile-time coordinate analysis possible. Ready for lifetime syntax and mechanics.</span>
     </a>
   </li>
   <li>
     <a href="/learn-rust/limits-of-compile-time-analysis/">
-      <span class="ch-num">04</span> Limits of Compile-Time Analysis
+      <span class="ch-num">04</span> <span class="ch-title">Limits of Compile-Time Analysis</span>
       <span class="ch-desc">Before: Understands how Rust makes compile-time coordinate analysis possible.<br>After: Understands why the compiler must be conservative and what trade-offs that creates.</span>
     </a>
   </li>
-  <li>
-    <span class="ch-num">05</span> ...
+  <li class="wip">
+    <span class="ch-num">05</span> <span class="ch-title">...</span>
     <span class="ch-desc">This chapter and subsequent chapters are a work in progress.</span>
   </li>
   <li>
     <a href="/learn-rust/exercises/">
-      <span class="ch-num">&nbsp;~&nbsp;</span> Exercises
+      <span class="ch-num">&nbsp;~&nbsp;</span> <span class="ch-title">Exercises</span>
       <span class="ch-desc">Hands-on exercises organized around the framework, not language features. Starts with the explicit! macro — a companion crate that makes Rust's implicit operations visible.</span>
     </a>
   </li>
