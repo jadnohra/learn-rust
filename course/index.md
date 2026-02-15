@@ -2,6 +2,8 @@
 layout: course
 title: Learn Rust
 permalink: /learn-rust/
+description: "Derive the borrow checker from first principles. A course on Rust's memory model for C++ programmers — SPACE × TIME × COORDINATES."
+image: /assets/img/learn-rust-og.png
 ---
 
 # <i class="fab fa-rust"></i> Learn Rust
