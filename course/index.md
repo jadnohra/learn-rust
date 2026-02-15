@@ -1,6 +1,8 @@
 ---
 layout: course
 title: Learn Rust
+short_title: Preamble
+chapter: 0
 permalink: /learn-rust/
 description: "Learn Rust - derive the borrow checker, don't memorize it. A Rust course for C++ programmers."
 image: /assets/img/learn-rust-og.png
